@@ -1,4 +1,4 @@
-# ConnectED (MART Innovation - ED7)
+# ConnectED: Connecting Minds. Transforming Lives. 
 
 ## Overview
 Our innovation is a mobile app designed to leverage existing smartphones and infrastructure to deliver educational content via radio broadcasts. By accessing local radio frequencies through phone hardware, the app ensures users can receive lessons without requiring an internet connection. This innovative approach encodes educational data (e.g., images, basic videos, and other custom content) over FM radio streams, enabling students to engage in literacy, numeracy, and essential skills in real-time.
@@ -104,7 +104,7 @@ OpenAI's ChatGPT was utilized for providing assistance with documentation, proje
 
 ---
 
-## Team Members
+## MART Innovation - ED7 (Team Members)
 - **Talhah Peerbhai** ([talhah@cmu.edu](mailto:talhah@cmu.edu))  
 - **Abdallah Abdaljalil** ([aabdalja@andrew.cmu.edu](mailto:aabdalja@andrew.cmu.edu))  
 - **Maria Mina** ([mmina@andrew.cmu.edu](mailto:mmina@andrew.cmu.edu))  
@@ -115,5 +115,3 @@ OpenAI's ChatGPT was utilized for providing assistance with documentation, proje
 ## License
 This project is licensed under the MIT License. See the LICENSE file for details.
 
-
-## ConnectED: Connecting Minds. Transforming Lives.
