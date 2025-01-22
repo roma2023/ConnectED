@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-# ConnectED
-Hackathon project
-=======
 # ConnectED (MART Innovation - ED7)
 
 ## Overview
@@ -116,7 +112,6 @@ OpenAI's ChatGPT was utilized for providing assistance with documentation, proje
 
 ---
 
-=======
 ## License
 This project is licensed under the MIT License. See the LICENSE file for details.
 
