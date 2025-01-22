@@ -9,18 +9,9 @@ const MainContent = () => {
   const [showSearching, setShowSearching] = useState(false);
   const [showSubjects, setShowSubjects] = useState(false);
   const [selectedSubject, setSelectedSubject] = useState(null);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [showQuiz, setShowQuiz] = useState(false);
 
-  const navigate = useNavigate();  // Navigation hook
-
-  // Images for subject slideshow
-  const images = {
-    English: ["/images/english1.jpg", "/images/english2.jpg"],
-    Math: ["/images/math1.jpg", "/images/math2.jpg"],
-    Science: ["/images/science1.jpg", "/images/science2.jpg"],
-    History: ["/images/history1.jpg", "/images/history2.jpg"],
-    Geography: ["/images/geography1.jpg", "/images/geography2.jpg"],
-  };
+  const navigate = useNavigate();
 
   useEffect(() => {
     const checkForHeadphones = async () => {
@@ -28,13 +19,6 @@ const MainContent = () => {
         await navigator.mediaDevices.getUserMedia({ audio: true });
         const devices = await navigator.mediaDevices.enumerateDevices();
         const audioOutputs = devices.filter(device => device.kind === "audiooutput");
-
-        const headphones = audioOutputs.some(device =>
-          device.label.toLowerCase().includes("hd audio 2nd output") ||
-          device.label.toLowerCase().includes("usb") ||
-          device.label.toLowerCase().includes("bluetooth") ||
-          device.label.toLowerCase().includes("headphone")
-        );
 
         const headphones1 = true;
 
@@ -63,13 +47,14 @@ const MainContent = () => {
 
   useEffect(() => {
     if (selectedSubject) {
-      const interval = setInterval(() => {
-        setCurrentImageIndex(
-          (prevIndex) => (prevIndex + 1) % images[selectedSubject.subject].length
-        );
-      }, 2000);
+      // Show quiz at a random interval between 10 to 20 seconds
+      const quizTimeout = setTimeout(() => {
+        setShowQuiz(true);
+      }, Math.floor(Math.random() * (20000 - 10000) + 10000));
 
-      return () => clearInterval(interval);
+      return () => {
+        clearTimeout(quizTimeout);
+      };
     }
   }, [selectedSubject]);
 
@@ -83,19 +68,16 @@ const MainContent = () => {
 
   const handleStationClick = (station) => {
     setSelectedSubject(station);
+    setShowQuiz(false); // Reset quiz when switching subjects
   };
 
   return (
     <div className="main-content">
-        <img
-        src="/logoNew.png"
-        alt="Logo"
-        className="top-logo"
-        />
+      <img src="/logoNew.png" alt="Logo" className="top-logo" />
       <div className="title-container">
         <h1 className="page-title">ConnectED</h1>
       </div>
-  
+
       {!headphonesDetected ? (
         <div className="no-headphones">
           <HeadphonesIcon style={{ fontSize: 100, color: "red" }} />
@@ -123,6 +105,17 @@ const MainContent = () => {
             <div className="wave"></div>
           </div>
           <p className="streaming-text">Streaming educational content...</p>
+
+          {showQuiz && (
+            <div className="quiz-container">
+              <p style={{ textAlign: 'center' }}>Question 1: What is the correct answer?</p>
+              <ul className="quiz-options">
+                <li>A) Option 1</li>
+                <li>B) Option 2</li>
+                <li>C) Option 3</li>
+              </ul>
+            </div>
+          )}
         </div>
       ) : (
         <div className="subject-list">
@@ -139,17 +132,14 @@ const MainContent = () => {
           </ul>
         </div>
       )}
-  
+
       <div className="back-home-container">
         <button className="back-home-button" onClick={() => navigate("/")}>
-          ← Back to Home
+          Back to Home
         </button>
       </div>
     </div>
   );
-  
-  
-  
 };
 
 export default MainContent;
