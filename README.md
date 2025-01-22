@@ -1,3 +1,4 @@
+![Alt text](frontend/public/logoNew.png "Optional Title")
 # ConnectED (MART Innovation - ED7)
 
 ## Overview
@@ -89,8 +90,9 @@ This project is open source, and contributions are welcome! To contribute:
 
 ---
 
-## License
-This project is licensed under the MIT License. See the LICENSE file for details.
+## Acknowledgements  
+
+OpenAI's ChatGPT was utilized for providing assistance with documentation, project guidance, and programming assistance. 
 
 ---
 
@@ -102,4 +104,9 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 ---
 
-By enabling education through radio, our app bridges the gap for underserved communities, ensuring a brighter future for all.
+## License
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+
+## ConnectE: Connecting Minds. Transforming Lives.
+### By enabling education through radio, our app bridges the gap for undeserved communities, ensuring a brighter future for all.
