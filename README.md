@@ -1,70 +1,105 @@
-# Getting Started with Create React App
+# ConnectED (MART Innovation - ED7)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
+Our innovation is a mobile app designed to leverage existing smartphones and infrastructure to deliver educational content via radio broadcasts. By accessing local radio frequencies through phone hardware, the app ensures users can receive lessons without requiring an internet connection. This innovative approach encodes educational data (e.g., images, basic videos, and other custom content) over FM radio streams, enabling students to engage in literacy, numeracy, and essential skills in real-time.
 
-## Available Scripts
+### Key Features
+- **Radio Broadcasts for Education**: Content is delivered via FM radio, ensuring accessibility in areas with limited infrastructure.
+- **Offline and Online Modes**: Includes preloaded offline content and the option to fetch additional content when internet access is available.
+- **Community Engagement**: Collaborates with local NGOs and community leaders to manage radio stations and ensure relevant content.
+- **Low-Power Device Support**: Compatible with basic hardware such as solar-powered or low-powered devices.
+- **Open Source**: Encourages contributions and improvements to sustain and scale the system.
 
-In the project directory, you can run:
+### Benefits
+- Provides quality education to children in remote or underserved areas.
+- Reduces barriers such as travel distances and household responsibilities, particularly supporting girls' education.
+- Promotes local relevance and community-driven content development.
+- Breaks cycles of poverty by building foundational skills for career opportunities.
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Installation and Usage
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Prerequisites
+- **Node.js** (version 14+ recommended) installed on your system.
+- A compatible smartphone or device capable of accessing FM radio frequencies.
 
-### `npm test`
+### Steps to Run the App
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. **Clone the Repository**  
+   - Run the following command in your terminal:  
+     ```bash
+     git clone <repository-url>
+     ```
 
-### `npm run build`
+2. **Navigate to the Project Directory**  
+   - Change your working directory to the project folder:  
+     ```bash
+     cd <project-folder-name>
+     ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. **Install Dependencies**  
+   - Install the required packages:  
+     ```bash
+     npm install
+     ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+4. **Start the App**  
+   - Start the development server:  
+     ```bash
+     npm start
+     ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+5. **Access the App**  
+   - Open a web browser and navigate to:  
+     ```
+     http://localhost:3000
+     ```
+   - Follow on-screen instructions to tune into FM radio frequencies and access educational content.
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Contribution
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+This project is open source, and contributions are welcome! To contribute:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. **Fork the Repository**  
+   - Fork the repository to your GitHub account.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+2. **Create a Feature Branch**  
+   - Create a new branch for your changes:  
+     ```bash
+     git checkout -b feature-name
+     ```
 
-## Learn More
+3. **Make Your Changes**  
+   - Edit the code and commit your changes:  
+     ```bash
+     git commit -m "Description of changes"
+     ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+4. **Push to Your Fork**  
+   - Push your changes to your forked repository:  
+     ```bash
+     git push origin feature-name
+     ```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+5. **Submit a Pull Request**  
+   - Open a pull request to the original repository and describe your changes.
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## License
+This project is licensed under the MIT License. See the LICENSE file for details.
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Team Members
+- **Talhah Peerbhai** ([talhah@cmu.edu](mailto:talhah@cmu.edu))  
+- **Abdallah Abdaljalil** ([aabdalja@andrew.cmu.edu](mailto:aabdalja@andrew.cmu.edu))  
+- **Maria Mina** ([mmina@andrew.cmu.edu](mailto:mmina@andrew.cmu.edu))  
+- **Raman Saparkhan** ([rsaparkh@andrew.cmu.edu](mailto:rsaparkh@andrew.cmu.edu))
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+By enabling education through radio, our app bridges the gap for underserved communities, ensuring a brighter future for all.
