@@ -1,0 +1,105 @@
+/* General app styling */
+.app {
+  display: flex;
+  justify-content: center;  /* Keeps main content centered */
+  align-items: center;      /* Centers content vertically */
+  height: 100vh;
+  position: relative;
+  background-color: #181818;
+}
+
+
+
+
+/* Sidebar styles */
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  background-color: #1c1c1c;
+  position: fixed;
+  left: 0;
+  top: 0;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Hide sidebar when closed */
+.sidebar-closed {
+  transform: translateX(-100%);
+}
+
+/* Settings panel fixed to the right, doesn't affect layout */
+.settings-panel {
+  width: 300px;
+  height: 100vh;
+  background-color: #1c1c1c;
+  position: fixed;
+  right: 0;
+  top: 0;
+  transition: transform 0.3s ease-in-out;
+  box-shadow: -5px 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Hide settings panel when closed */
+.settings-panel-closed {
+  transform: translateX(100%);
+}
+
+/* Toggle button style */
+.toggle-button {
+  position: absolute;
+  z-index: 1000;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 12px;
+  font-size: 22px;
+  border-radius: 50%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease-in-out;
+}
+
+/* Sidebar toggle button */
+.toggle-button.sidebar-toggle {
+  left: 260px; /* Positioned outside sidebar when it's open */
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.toggle-button.sidebar-toggle.closed {
+  left: 10px; /* Positioned near the edge when sidebar is closed */
+}
+
+/* Settings panel toggle button */
+.toggle-button.settings-toggle {
+  right: 310px; /* Positioned outside settings panel */
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.toggle-button.settings-toggle.closed {
+  right: 10px; /* Positioned near the edge when panel is closed */
+}
+
+/* Hover effect for better interaction */
+.toggle-button:hover {
+  background-color: #0056b3;
+}
+
+/* Main content styles to prevent shifting */
+.main-content {
+  text-align: center;
+  position: relative;
+  max-width: 800px; /* Keeps content from spreading too much */
+}
+
+.headphones-icon {
+  font-size: 100px;
+  color: red;
+}
+
+.headphones-text {
+  font-size: 24px;
+  color: red;
+  font-weight: bold;
+}
