@@ -1,0 +1,185 @@
+.settings-panel {
+    width: 300px;
+    padding: 20px;
+    background: white;
+    color: white;
+  }
+  
+  h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+  
+  label {
+    display: block;
+    margin-top: 20px;
+  }
+  
+  .add-function {
+    margin-top: 20px;
+    width: 100%;
+  }
+  
+  .settings-panel {
+  width: 300px;
+  background: white;
+  height: 100vh;
+  transition: all 0.3s ease;
+  padding: 20px;
+  position: relative;
+}
+
+.settings-panel.closed {
+  width: 60px;
+  overflow: hidden;
+}
+
+.content {
+  margin-top: 40px;
+}
+
+h2 {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-top: 20px;
+}
+
+
+.add-function:hover {
+  background-color: #00cc66;
+}
+
+.toggle-btn {
+  position: absolute;
+  top: 20px;
+  left: -30px;
+  width: 30px;
+  height: 30px;
+  background: #00ff88;
+  color: #000;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggle-btn:hover {
+  background: #00cc66;
+}
+
+.app {
+    display: flex;
+    height: 100vh;
+    background-color: #181818;
+  }
+  
+  /* Toggle Buttons */
+  .toggle-button {
+    position: absolute;
+    z-index: 1000;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 4px;
+  }
+  
+  .close-sidebar {
+    left: 250px; /* Positioned at the end of the open sidebar */
+    top: 20px;
+  }
+  
+  .open-sidebar {
+    left: 0; /* Positioned at the start when sidebar is closed */
+    top: 20px;
+  }
+  
+  .close-settings {
+    right: 300px; /* Positioned at the start of the open settings panel */
+    top: 20px;
+  }
+  
+  .open-settings {
+    right: 0; /* Positioned at the end when settings panel is closed */
+    top: 20px;
+  }
+
+  .settings-panel select {
+    background-color: white; /* Change background color */
+    color: #ffffff; /* Change text color */
+    border: 1px solid #007bff; /* Change border color */
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    outline: none;
+    width: 100%;
+  }
+
+  /* Style the entire panel */
+.settings-panel {
+    width: 300px;
+    padding: 20px;
+    background: #1c1c1c;
+    color: #ffffff; /* White text for all elements inside */
+  }
+  
+  /* Style the select dropdown box */
+  .settings-panel .MuiSelect-root, 
+  .settings-panel .MuiOutlinedInput-root {
+    background-color: #1c1c1c !important; /* Dark background */
+    color: #ffffff !important; /* White text */
+    border: 1px solid #007bff !important; /* Blue border */
+    border-radius: 5px;
+  }
+  
+  /* Change dropdown arrow color */
+  .settings-panel .MuiSelect-icon {
+    color: #ffffff !important;
+  }
+  
+  /* Style the dropdown options */
+  .settings-panel .MuiMenuItem-root {
+    background-color: #1c1c1c !important;  /* Dark background for dropdown */
+    color: #ffffff !important;  /* White text */
+  }
+  
+  /* Hover effect for dropdown items */
+  .settings-panel .MuiMenuItem-root:hover {
+    background-color: #007bff !important;
+  }
+  
+  /* Style the slider */
+  .settings-panel .MuiSlider-root {
+    color: #007bff !important; /* Slider color */
+  }
+  
+  /* Button styling */
+  .settings-panel .add-function {
+    margin-top: 20px;
+    width: 100%;
+    background-color: #00bfff !important;
+    color: #000 !important;
+    font-weight: bold;
+    border-radius: 5px;
+  }
+  
+  .settings-panel .add-function:hover {
+    background-color: #00cc66 !important;
+  }
+  
+  /* Style the label text */
+  .settings-panel label {
+    color: #ffffff !important;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  
