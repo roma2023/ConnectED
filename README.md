@@ -1,4 +1,3 @@
-![Alt text](frontend/public/logoNew.png "Optional Title")
 # ConnectED (MART Innovation - ED7)
 
 ## Overview
@@ -60,6 +59,15 @@ Our innovation is a mobile app designed to leverage existing smartphones and inf
 
 ---
 
+### Testing
+
+1. **Run Unit Tests**  
+   - Run the following command in your terminal:  
+     ```bash
+     npm test
+     ```
+---
+
 ## Contribution
 
 This project is open source, and contributions are welcome! To contribute:
@@ -108,5 +116,4 @@ OpenAI's ChatGPT was utilized for providing assistance with documentation, proje
 This project is licensed under the MIT License. See the LICENSE file for details.
 
 
-## ConnectE: Connecting Minds. Transforming Lives.
-### By enabling education through radio, our app bridges the gap for undeserved communities, ensuring a brighter future for all.
+## ConnectED: Connecting Minds. Transforming Lives.
