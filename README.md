@@ -20,11 +20,11 @@ Our innovation is a mobile app designed to leverage existing smartphones and inf
 
 ## Installation and Usage
 
-### Prerequisites
+### Prerequisites for Frontend
 - **Node.js** (version 14+ recommended) installed on your system.
 - A compatible smartphone or device capable of accessing FM radio frequencies.
 
-### Steps to Run the App
+### Steps to Run the Frontend
 
 1. **Clone the Repository**  
    - Run the following command in your terminal:  
@@ -67,6 +67,35 @@ Our innovation is a mobile app designed to leverage existing smartphones and inf
      npm test
      ```
 ---
+
+### Prerequisites for Mock radio station
+- **Node.js** (version 14+ recommended) installed on your system.
+- A compatible smartphone or device capable of accessing FM radio frequencies.
+
+### Steps to Run the Mock radio station
+
+1. **Clone the Repository**  
+   - Run the following command in your terminal:  
+     ```bash
+     git clone <repository-url>
+     ```
+2. **Navigate to the Project Directory**  
+   - Change your working directory to the project folder:  
+     ```bash
+     cd <project-folder-name>/mockstation
+     ```
+
+3. **Install Dependencies**  
+   - Install the required packages:  
+     ```bash
+     pip install -r requirements.txt
+     ```
+
+4. **Start the App**  
+   - Start the development server:  
+     ```bash
+     python3 streamer.py
+     ```
 
 ## Contribution
 

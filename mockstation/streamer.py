@@ -5,6 +5,9 @@ import subprocess
 from collections import defaultdict
 from fastapi import FastAPI, WebSocket
 from fastapi.responses import StreamingResponse
+from fastapi import File, UploadFile, Form
+import shutil
+import os
 
 app = FastAPI()
 
@@ -97,6 +100,18 @@ manager = AudioStreamManager()
 @app.on_event("startup")
 async def startup_event():
     asyncio.create_task(manager.check_events())
+
+@app.post("/upload")
+async def upload_file(file: UploadFile = File(...), filename: str = Form(...)):
+    if not file.filename.endswith(".mp3"):
+        return {"error": "Only MP3 files are allowed"}
+
+    file_path = os.path.join(os.path.curdir, filename)
+
+    with open(file_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+
+    return {"message": "File uploaded successfully", "filename": filename}
 
 @app.websocket("/ws/{channel_id}")
 async def websocket_endpoint(websocket: WebSocket, channel_id: int):
