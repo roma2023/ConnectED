@@ -1,7 +1,7 @@
 # ConnectED: Connecting Minds. Transforming Lives. 
 
 ## Overview
-Our innovation is a mobile app designed to leverage existing smartphones and infrastructure to deliver educational content via radio broadcasts. By accessing local radio frequencies through phone hardware, the app ensures users can receive lessons without requiring an internet connection. This innovative approach encodes educational data (e.g., images, basic videos, and other custom content) over FM radio streams, enabling students to engage in literacy, numeracy, and essential skills in real-time.
+Our innovation is a mobile app designed to leverage existing smartphones and infrastructure to deliver educational content via radio broadcasts. By accessing local radio frequencies through phone hardware, the app ensures users can receive lessons without requiring an internet connection. This innovative approach encodes educational data (e.g., images, basic videos, and other custom content) over FM radio streams, enabling students to engage in literacy, numeracy, and essential skills in real-time. The backend system, which powers content conversion, scheduling, and broadcasting, can be found in its own repository: [ConnectED Backend Repository](<https://github.com/roma2023/connected-backend>).
 
 ### Key Features
 - **Radio Broadcasts for Education**: Content is delivered via FM radio, ensuring accessibility in areas with limited infrastructure.
