@@ -4,19 +4,21 @@ import HeadphonesIcon from "@mui/icons-material/Headset";
 import SearchIcon from "@mui/icons-material/Search";
 import "./MainContent.css";
 
+const WEBSOCKET_URL = "ws://localhost:8000/ws/";
+const STREAM_URL = "http://localhost:8000/stream/";
+
 const MainContent = () => {
   const [headphonesDetected, setHeadphonesDetected] = useState(false);
   const [showSearching, setShowSearching] = useState(false);
   const [showSubjects, setShowSubjects] = useState(false);
   const [selectedSubject, setSelectedSubject] = useState(null);
-  const [showQuiz, setShowQuiz] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [progress, setProgress] = useState(0);
+  const [eventReceived, setEventReceived] = useState(false);
   const [answers, setAnswers] = useState([]);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [correctAnswer, setCorrectAnswer] = useState("");
-  const audioRef = useRef(new Audio()); // Reference for background audio
-
+  const audioRef = useRef(new Audio());
+  const wsRef = useRef(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,42 +36,29 @@ const MainContent = () => {
         console.error("Error accessing media devices:", error);
       }
     };
-
     checkForHeadphones();
   }, []);
 
   useEffect(() => {
-    if (loading) {
-      setProgress(0);
-      let interval = setInterval(() => {
-        setProgress((oldProgress) => {
-          if (oldProgress >= 100) {
-            clearInterval(interval);
-            setLoading(false);
-            setShowQuiz(true);
-            return 100;
-          }
-          return oldProgress + 2;
-        });
-      }, 100);
-
-      return () => clearInterval(interval);
-    }
-  }, [loading]);
-
-  useEffect(() => {
     return () => {
-      audioRef.current.pause();
-      audioRef.current.src = "";
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.src = "";
+      }
+      if (wsRef.current) {
+        wsRef.current.close();
+      }
     };
   }, []);
+
+  const subjectChannels = {
+    English: 1,
+    Math: 2,
+  };
 
   const subjectQuestions = {
     English: { question: "Which word is a noun?", options: ["Run", "Happy", "Dog"], answer: "Dog" },
     Math: { question: "What is 2 + 2?", options: ["3", "4", "5"], answer: "4" },
-    Science: { question: "Which planet is closest to the Sun?", options: ["Earth", "Mercury", "Mars"], answer: "Mercury" },
-    History: { question: "Who was the first President of the USA?", options: ["Abraham Lincoln", "George Washington", "Thomas Jefferson"], answer: "George Washington" },
-    Geography: { question: "What is the capital of France?", options: ["Berlin", "Madrid", "Paris"], answer: "Paris" },
   };
 
   const radioStations = Object.keys(subjectQuestions).map((subject, index) => ({
@@ -79,27 +68,30 @@ const MainContent = () => {
 
   const handleStationClick = async (station) => {
     setSelectedSubject(station);
-    setShowQuiz(false);
     setLoading(true);
+    setEventReceived(false);
 
-    try {
-      console.log("Fetching audio stream...");
+    const channelId = subjectChannels[station.subject];
+    if (!channelId) return;
 
-      // Test audio stream (Replace with real API later)
-      const audioStreamURL = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
+    audioRef.current.pause();
+  audioRef.current.src = ""; // Reset src before assigning a new one
+  audioRef.current.load();
 
-      // Play the audio in the background without UI
-      audioRef.current.src = audioStreamURL;
-      audioRef.current.play().catch(error => console.error("Audio play error:", error));
+    audioRef.current.src = `${STREAM_URL}${channelId}`;
+    audioRef.current.play().catch((error) => console.error("Audio play error:", error));
 
-    } catch (error) {
-      console.error("Error fetching audio:", error);
-    }
+    wsRef.current = new WebSocket(`${WEBSOCKET_URL}${channelId}`);
+    wsRef.current.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      if (data.event === "timestamp_reached") {
+        setEventReceived(true);
+        setLoading(false);
+      }
+    };
 
     const { question, options, answer } = subjectQuestions[station.subject];
-    const shuffledAnswers = [...options].sort(() => Math.random() - 0.5);
-
-    setAnswers(shuffledAnswers);
+    setAnswers([...options].sort(() => Math.random() - 0.5));
     setCorrectAnswer(answer);
     setSelectedAnswer(null);
   };
@@ -107,15 +99,10 @@ const MainContent = () => {
   const handleAnswerClick = (answer) => {
     if (selectedAnswer === null) {
       setSelectedAnswer(answer);
-
       setTimeout(() => {
         if (answer !== correctAnswer) {
           setSelectedAnswer(correctAnswer);
         }
-
-        setTimeout(() => {
-          setShowQuiz(false);
-        }, 1500);
       }, 1000);
     }
   };
@@ -146,25 +133,15 @@ const MainContent = () => {
       ) : selectedSubject ? (
         <div className="learning-container">
           <h2>{selectedSubject.subject} {selectedSubject.frequency}</h2>
-          <div className="audio-wave">
-            <div className="wave"></div>
-            <div className="wave"></div>
-            <div className="wave"></div>
-            <div className="wave"></div>
-            <div className="wave"></div>
-          </div>
           <p className="streaming-text">Streaming educational content...</p>
 
           {loading && (
             <div className="loading-container">
-              <p className="loading-text">Loading content...</p>
-              <div className="loading-bar">
-                <div className="loading-progress" style={{ width: `${progress}%` }}></div>
-              </div>
+              <p className="loading-text">Waiting for event...</p>
             </div>
           )}
 
-          {showQuiz && (
+          {eventReceived && (
             <div className="quiz-container">
               <p style={{ textAlign: 'center' }}>{subjectQuestions[selectedSubject.subject].question}</p>
               <ul className="quiz-options">
@@ -206,9 +183,7 @@ const MainContent = () => {
       )}
 
       <div className="back-home-container">
-        <button className="back-home-button" onClick={() => navigate("/")}>
-          Back to Home
-        </button>
+        <button className="back-home-button" onClick={() => navigate("/")}>Back to Home</button>
       </div>
     </div>
   );
