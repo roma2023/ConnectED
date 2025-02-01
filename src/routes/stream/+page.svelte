@@ -2,13 +2,12 @@
   import MobileFrame from "$lib/MobileFrame.svelte";
   import { selectedChannel } from "$lib/stores";
   import { onMount, onDestroy } from "svelte";
-  import channel3Audio from "$lib/assets/channel3.mp3";
 
   let channelId;
   let audio = new Audio();
   let websocket;
   let eventReceived = false;
-  let showSavingStream = true;
+  let showSavingStream = true; // For "Saving Stream Offline..."
   let textbookDownloading = false;
   let textbookDownloaded = false;
   let showQuiz = false;
@@ -31,12 +30,8 @@
       return;
     }
 
-    if (channelId === 3) {
-      audio.src = channel3Audio;
-    } else {
-      const timestamp = new Date().getTime();
-      audio.src = `http://localhost:8000/stream/${channelId}?t=${timestamp}`;
-    }
+    const timestamp = new Date().getTime();
+    audio.src = `http://localhost:8000/stream/${channelId}?t=${timestamp}`;
     audio.play().catch(err => console.error("Error playing audio:", err));
 
     websocket = new WebSocket(`ws://localhost:8000/ws/${channelId}`);
@@ -106,10 +101,12 @@
 <MobileFrame>
   {#if channelId}
     <div class="h-full w-full flex flex-col items-center p-6 bg-black text-white relative">
+      <!-- Navbar -->
       <div class="w-full flex items-center justify-center py-4 border-b border-gray-700">
         <h2 class="text-2xl font-bold text-cyan-400">Streaming Channel {channelId}</h2>
       </div>
 
+      <!-- Audio Wave Animation or Event Placeholder -->
       <div class="flex-1 flex items-center justify-center">
         {#if (channelId === 2 && eventReceived) || (channelId === 3 && showQuiz)}
           <div class="w-full h-40 bg-gray-700 mt-4 flex items-center justify-center rounded-lg p-4">
@@ -146,6 +143,31 @@
         {/if}
       </div>
 
+      <!-- Download Sentiment Tiles -->
+      <div class="w-full max-w-sm space-y-2 mb-20">
+        {#if showSavingStream}
+          <div class="flex items-center space-x-2 p-2 bg-gray-800 rounded-md animate-pulse">
+            <div class="w-4 h-4 bg-cyan-400 rounded-full"></div>
+            <span class="text-sm text-gray-300">Saving Stream Offline...</span>
+          </div>
+        {/if}
+
+        {#if textbookDownloading}
+          <div class="flex items-center space-x-2 p-2 bg-gray-800 rounded-md animate-pulse">
+            <div class="w-4 h-4 bg-cyan-400 rounded-full"></div>
+            <span class="text-sm text-gray-300">Downloading Textbook...</span>
+          </div>
+        {/if}
+
+        {#if textbookDownloaded}
+          <div class="flex items-center space-x-2 p-2 bg-gray-800 rounded-md border border-green-400">
+            <div class="w-4 h-4 bg-green-400 rounded-full flex items-center justify-center">✓</div>
+            <span class="text-sm text-gray-300">Textbook Downloaded</span>
+          </div>
+        {/if}
+      </div>
+
+      <!-- Stop Listening Button -->
       <div class="absolute bottom-6 max-w-sm">
         <button
           class="bg-red-500 text-white px-4 py-2 rounded-lg active:scale-[0.98] transition-transform duration-200"
@@ -157,7 +179,6 @@
     </div>
   {/if}
 </MobileFrame>
-
 
 <style>
 @keyframes quiet {
