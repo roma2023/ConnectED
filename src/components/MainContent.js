@@ -75,13 +75,13 @@ const MainContent = () => {
     if (!channelId) return;
 
     audioRef.current.pause();
-  audioRef.current.src = ""; // Reset src before assigning a new one
-  audioRef.current.load();
+    audioRef.current.src = ""; // Reset src before assigning a new one
+    audioRef.current.load();
 
-    audioRef.current.src = `${STREAM_URL}${channelId}`;
+    audioRef.current.src = `${STREAM_URL}${station.subject}`;
     audioRef.current.play().catch((error) => console.error("Audio play error:", error));
 
-    wsRef.current = new WebSocket(`${WEBSOCKET_URL}${channelId}`);
+    wsRef.current = new WebSocket(`${WEBSOCKET_URL}${station.subject}`);
     wsRef.current.onmessage = (event) => {
       const data = JSON.parse(event.data);
       if (data.event === "timestamp_reached") {

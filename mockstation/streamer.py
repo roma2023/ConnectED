@@ -3,26 +3,33 @@ import time
 import json
 import subprocess
 from collections import defaultdict
-from fastapi import FastAPI, WebSocket
+from fastapi import FastAPI, WebSocket, UploadFile, File, Form, HTTPException
 from fastapi.responses import StreamingResponse
-from fastapi import File, UploadFile, Form
+from fastapi.middleware.cors import CORSMiddleware
 import shutil
 import os
 
 app = FastAPI()
 
-CHANNELS = {
-    1: {
-        "audio_file": "channel2.mp3",
-        "loop_duration": 17,
-        "events": [5]
-    },
-    2: {
-        "audio_file": "channel3.mp3",
-        "loop_duration": 43,
-        "events": [20]
-    }
+# Enable CORS
+origins = [
+    "http://localhost:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+subjectChannels = {
+    "English": 1,
+    "Math": 2,
 }
+
+CHANNELS = {}
 
 class AudioStreamManager:
     def __init__(self):
@@ -102,7 +109,7 @@ async def startup_event():
     asyncio.create_task(manager.check_events())
 
 @app.post("/upload")
-async def upload_file(file: UploadFile = File(...), filename: str = Form(...)):
+async def upload_file(file: UploadFile = File(...), filename: str = Form(...), section: str = Form(...), loopTime: int = Form(...), numEvents: int = Form(...)):
     if not file.filename.endswith(".mp3"):
         return {"error": "Only MP3 files are allowed"}
 
@@ -111,23 +118,56 @@ async def upload_file(file: UploadFile = File(...), filename: str = Form(...)):
     with open(file_path, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
 
-    return {"message": "File uploaded successfully", "filename": filename}
+    channel_id = subjectChannels.get(section)
+    if not channel_id:
+        return {"error": "Invalid section"}
 
-@app.websocket("/ws/{channel_id}")
-async def websocket_endpoint(websocket: WebSocket, channel_id: int):
+    CHANNELS[channel_id] = {
+        "audio_file": file_path,
+        "loop_duration": loopTime,
+        "events": [i * (loopTime // numEvents) for i in range(1, numEvents + 1)],
+        "section": section
+    }
+
+    print(f"File uploaded successfully: {file_path}")
+    print(f"Channel ID: {channel_id}")
+    print(f"Section: {section}")
+    print(f"Loop Time: {loopTime}")
+    print(f"Number of Events: {numEvents}")
+
+    return {"message": "File uploaded successfully", "channel_id": channel_id}
+
+@app.websocket("/ws/{section}")
+async def websocket_endpoint(websocket: WebSocket, section: str):
+    channel_id = subjectChannels.get(section)
+    if not channel_id:
+        await websocket.close(code=4001, reason="Invalid section")
+        return
     await manager.handle_websocket(websocket, channel_id)
 
-@app.get("/stream/{channel_id}")
-def audio_stream(channel_id: int):
+@app.get("/stream/{section}")
+def audio_stream(section: str):
+    channel_id = subjectChannels.get(section)
+    if not channel_id:
+        print(f"Section {section} not found")
+        raise HTTPException(status_code=404, detail="Section not found")
+
+    config = CHANNELS.get(channel_id)
+    if not config:
+        print(f"Channel {channel_id} not found")
+        raise HTTPException(status_code=404, detail="Channel not found")
+    if config["section"] != section:
+        print(f"Access forbidden: Channel section is {config['section']}, requested section is {section}")
+        raise HTTPException(status_code=403, detail="Access to this section is forbidden")
+
     def generate(channel_id: int):
-        config = CHANNELS.get(channel_id)
-        if not config:
-            yield b''
-            return
         audio_file = config["audio_file"]
+        loop_duration = config["loop_duration"]
+        start_time = time.time()
+        elapsed_time = start_time % loop_duration
         ffmpeg_cmd = [
             'ffmpeg',
-            '-stream_loop', '-1',
+            '-ss', str(elapsed_time),
             '-i', audio_file,
             '-f', 'mp3',
             '-acodec', 'libmp3lame',
@@ -156,3 +196,4 @@ def audio_stream(channel_id: int):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
+    
