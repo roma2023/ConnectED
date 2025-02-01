@@ -41,7 +41,7 @@ Our innovation is a mobile app designed to leverage existing smartphones and inf
 3. **Install Dependencies**  
    - Install the required packages:  
      ```bash
-     npm install
+     npm install --force
      ```
 
 4. **Start the App**  
@@ -53,7 +53,7 @@ Our innovation is a mobile app designed to leverage existing smartphones and inf
 5. **Access the App**  
    - Open a web browser and navigate to:  
      ```
-     http://localhost:3000
+     http://localhost:5173
      ```
    - Follow on-screen instructions to tune into FM radio frequencies and access educational content.
 
