@@ -21,9 +21,9 @@
     }
 
     let stations = [
-        { id: 1, subject: "English", frequency: "60.1 FM" },
-        { id: 2, subject: "Math", frequency: "61.1 FM" },
-        { id: 3, subject: "Science", frequency: "62.1 FM" }
+        { id: 1, subject: "Science", frequency: "60.1 FM" },
+        { id: 2, subject: "English", frequency: "61.1 FM" },
+        { id: 3, subject: "Demo", frequency: "62.1 FM" }
     ];
 
     function tuneIn(station) {
